@@ -1,34 +1,51 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Context} from "../../context";
-import UserCard from "../UserCard";
+import {Context} from "../context";
+import Card from "./Card";
 
-const UsersBlock = ({ten}) => {
-    const [users, setUsers] = useState(useContext(Context));
+const Block = ({ten}) => {
+    const {users, searchQuery} = useContext(Context);
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const start = ten - 9;
     const finish = ten;
-    const [isActive, setIsActive] = useState(false)
+    const [isActive, setIsActive] = useState(false);
+    const filterUsers = (user) => {
+        return start <= Number(user.registeredAge)
+            && Number(user.registeredAge) <= finish
+            && user.name.toLowerCase().includes(searchQuery.toLowerCase());
+    };
 
-    const filterUsers = () => {
-        let filteredUsers = users.filter((user) => start <= Number(user.registeredAge) && Number(user.registeredAge) <= finish)
-        setUsers(filteredUsers)
+
+    const dragStartHandler = (e, user) => {
+        e.dataTransfer.setData("user", JSON.stringify(user));
+    }
+    const dragOverHandler = (e) => {
+        e.preventDefault();
     }
 
     useEffect(() => {
-        filterUsers()
-    }, [])
+        setFilteredUsers(users.filter(user => filterUsers(user)));
+    }, [searchQuery]);
 
     return (
         <div className="accordion">
             <button
-                className={users.length < 1 ? "accordion__header accordion__header--disabled" : "accordion__header"}
-                onClick={() => setIsActive(!isActive)}
+                className={filteredUsers.length < 1 ? "accordion__header accordion__header--disabled" : "accordion__header"}
+                onClick={() => {
+                    setIsActive(!isActive);
+                }}
             >
                 <span>{start} - {finish}</span>
             </button>
             {isActive ?
                 <div className="accordion__content">
-                    {users.map((user, index) => (
-                        <UserCard key={index} user={user} />
+                    {filteredUsers.map((user, index) => (
+                        <Card
+                            key={user.email + user.id}
+                            user={user}
+                            draggable={true}
+                            onDragStart={(e) => dragStartHandler(e, user)}
+                            onDragOver={(e) => dragOverHandler(e)}
+                        />
                     ))}
                 </div>
                 :
@@ -38,4 +55,4 @@ const UsersBlock = ({ten}) => {
     );
 };
 
-export default UsersBlock;
+export default Block;

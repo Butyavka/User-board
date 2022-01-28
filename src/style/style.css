@@ -1,0 +1,199 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    background-image: url("/src/assets/icons/loading.png");
+    background-size: cover;
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+@keyframes loading {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.highlight {
+    font-weight: bold;
+    text-decoration: underline;
+}
+.table {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    column-gap: 10px;
+}
+.table__column {
+    width: 100%;
+    height: 800px;
+    overflow: auto;
+    background-color: #cbe4f1;
+}
+.favorite {
+    position: relative;
+    height: 100%;
+}
+.favorite__heading {
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding: 14px;
+    background-color: #2a566c;
+    font-size: 24px;
+    color: #e2f1f8;
+}
+.favorite__list {
+    height: calc(100% - 56px);
+}
+.light {
+    background-color: blueviolet;
+}
+.accordion {
+    position: relative;
+}
+.accordion__header {
+    position: sticky;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 14px;
+    font-size: 24px;
+    color: #e2f1f8;
+    background-color: #4584a3;
+    border: none;
+    cursor: pointer;
+    transition: background-color .2s linear;
+}
+.accordion__header:hover {
+    background-color: #316b88;
+}
+.accordion__header--disabled {
+    background-color: #808e95;
+    cursor: default;
+}
+.accordion__button {
+    border: none;
+    background-color: transparent;
+    font-size: 24px;
+    color: #e2f1f8;
+    cursor: pointer;
+}
+
+.card {
+    border-bottom: 1px solid #acacbd;
+    cursor: grab;
+}
+.card:last-child {
+    border: none;
+}
+.card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    font-size: 22px;
+    /*cursor: pointer;*/
+    background-color: #E1E2E1;
+    transition: background-color .2s linear;
+}
+
+.card__header:hover {
+    background-color: rgba(114, 165, 190, 0.77);
+}
+
+.card__header > img {
+    width: 20px;
+}
+
+.card__body {
+    max-width: 700px;
+    margin: 8px;
+    padding: 8px;
+    display: flex;
+    column-gap: 16px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0px 1px 8px 0px rgb(0 0 0 / 12%);
+}
+.card__photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.card__photo > img {
+    width: 100%;
+}
+.card__text {
+    font-size: 20px;
+}
+
+.search {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+}
+
+.search__input {
+    width: 100%;
+    height: 30px;
+    padding: 8px;
+    border: 2px solid #e1e2e1;
+    font-size: 16px;
+    outline: transparent;
+}
+
+.search__button {
+    border: none;
+    padding: 4px;
+    background-color: #34956f;
+    color: #e2f1f8;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color .2s linear;
+    outline: transparent;
+}
+
+.search__button:hover {
+    background-color: #26805c;
+}
+
+.delete {
+    position: relative;
+    height: 100%;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    cursor: pointer;
+}
+.delete:hover::after {
+    content: "Удалить";
+    position: absolute;
+    top: -28px;
+    left: -60px;
+    background-color: aliceblue;
+    padding: 2px;
+    border: 1px solid grey;
+}
+
+.delete > img {
+    height: 20px;
+}
