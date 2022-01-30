@@ -13,31 +13,34 @@ const Table = () => {
     const [blockCount, setBlockCount] = useState(0);
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredUsers, setFilteredUsers] = useState([]);
+    const [highlightFavorites, setHighlightFavorites] = useState(false)
 
     useEffect(() => {
         setLoading(true);
-        getUsers().then(res => {
-            let result = res.data.results;
-            result = result.map((user, index) => {
-                return {
-                    id: index,
-                    name: `${user.name.first} ${user.name.last}`,
-                    email: user.email,
-                    registeredAge: user.registered.age,
-                    registeredDate: moment(user.registered.date).format("MM.DD.YYYY"),
-                    photo: user.picture.medium,
-                };
-            });
-            let sortedList = result.sort(function(a, b) {
-                if (a.registeredAge > b.registeredAge) return 1;
-                if (a.registeredAge < b.registeredAge) return -1;
-                return 0;
-            });
-            setFilteredUsers(sortedList);
-            let maxAge = sortedList[sortedList.length - 1].registeredAge;
-            setBlockCount(Math.round(maxAge / 10));
-            setLoading(false);
-        });
+        getUsers()
+            .then(res => {
+                let result = res.data.results;
+                result = result.map((user, index) => {
+                    return {
+                        id: index,
+                        name: `${user.name.first} ${user.name.last}`,
+                        email: user.email,
+                        registeredAge: user.registered.age,
+                        registeredDate: moment(user.registered.date).format("MM.DD.YYYY"),
+                        photo: user.picture.medium,
+                    };
+                });
+                let sortedList = result.sort(function(a, b) {
+                    if (a.registeredAge > b.registeredAge) return 1;
+                    if (a.registeredAge < b.registeredAge) return -1;
+                    return 0;
+                });
+                setFilteredUsers(sortedList);
+                let maxAge = sortedList[sortedList.length - 1].registeredAge;
+                setBlockCount(Math.round(maxAge / 10));
+                setLoading(false);
+            })
+            .catch(e => alert(e));
     }, []);
 
     const renderBlocks = () => {
@@ -59,6 +62,8 @@ const Table = () => {
                 <Context.Provider value={{
                     users: filteredUsers,
                     searchQuery,
+                    highlightFavorites,
+                    setHighlightFavorites,
                 }}>
                     <div className="table">
                         <div className="table__column"

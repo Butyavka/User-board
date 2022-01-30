@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Card from "./Card";
 import trash from "../assets/icons/trash.png"
+import {Context} from "../context";
 
 const Favorites = () => {
+    const {highlightFavorites} = useContext(Context)
     const [favoritesList, setFavoritesList] = useState([])
 
     const deleteFavoriteItem = (id) => {
@@ -34,7 +36,7 @@ const Favorites = () => {
                 Избранное
             </div>
             <div
-                className="favorite__list"
+                className={highlightFavorites ? "favorite__list favorite__list--highlight" : "favorite__list"}
                 onDrop={(e) => onDropHandler(e)}
                 onDragOver={(e) => dragOver(e)}
             >
@@ -45,7 +47,7 @@ const Favorites = () => {
                         parent="favorite"
                     >
                         <button className="delete" onClick={() => deleteFavoriteItem(index)}>
-                            <img src={trash}/>
+                            <img src={trash} alt="trash"/>
                         </button>
                     </Card>
                 ))}

@@ -56,7 +56,18 @@
     color: #e2f1f8;
 }
 .favorite__list {
+    position: relative;
     height: calc(100% - 56px);
+}
+.favorite__list--highlight:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0px 0px 20px 0px rgb(4, 112, 67);
 }
 .light {
     background-color: blueviolet;
@@ -82,7 +93,8 @@
 .accordion__header:hover {
     background-color: #316b88;
 }
-.accordion__header--disabled {
+.accordion__header--disabled,
+.accordion__header--disabled:hover {
     background-color: #808e95;
     cursor: default;
 }
@@ -93,10 +105,12 @@
     color: #e2f1f8;
     cursor: pointer;
 }
-
+.accordion__content > .card {
+    cursor: grab;
+}
 .card {
     border-bottom: 1px solid #acacbd;
-    cursor: grab;
+    cursor: pointer;
 }
 .card:last-child {
     border: none;
@@ -107,7 +121,6 @@
     align-items: center;
     padding: 8px;
     font-size: 22px;
-    /*cursor: pointer;*/
     background-color: #E1E2E1;
     transition: background-color .2s linear;
 }
