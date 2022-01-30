@@ -112,6 +112,36 @@
     border-bottom: 1px solid #acacbd;
     cursor: pointer;
 }
+
+.card-exit-active {
+    animation: fade-out .5s forwards;
+}
+
+.card-enter-active {
+    animation: fade-in .5s forwards;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+}
+
 .card:last-child {
     border: none;
 }

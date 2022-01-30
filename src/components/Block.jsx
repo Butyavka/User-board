@@ -31,7 +31,11 @@ const Block = ({ten}) => {
     return (
         <div className="accordion">
             <button
-                className={filteredUsers.length < 1 ? "accordion__header accordion__header--disabled" : "accordion__header"}
+                className={filteredUsers.length < 1
+                    ?
+                    "accordion__header accordion__header--disabled"
+                    :
+                    "accordion__header"}
                 onClick={() => {
                     setIsActive(!isActive);
                 }}
@@ -39,7 +43,7 @@ const Block = ({ten}) => {
                 <span>{start} - {finish}</span>
             </button>
             {isActive && filteredUsers.length > 0?
-                <div className="accordion__content">
+                <ul className="accordion__content">
                     {filteredUsers.map((user, index) => (
                         <Card
                             key={user.email + user.id}
@@ -50,7 +54,7 @@ const Block = ({ten}) => {
                             onDragOver={(e) => dragOverHandler(e)}
                         />
                     ))}
-                </div>
+                </ul>
                 :
                 null
             }
